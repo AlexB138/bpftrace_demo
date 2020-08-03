@@ -1,0 +1,24 @@
+#!/usr/bin/env bpftrace
+/*
+ * demo		For use with demo.go
+ *			For Linux, uses bpftrace and eBPF.
+ *
+ * USAGE: demo.bt
+ *
+ * This show how many times getRand is called while tracing.
+ * Intended to show the power of uprobes and bpftrace
+ *
+ * 08-01-20	Alex Barnes	Created this.
+ */
+
+BEGIN
+{
+	printf("Tracing calls to getRand from demo\n");
+}
+
+uretprobe:/vagrant/misc/demo:"main.getRand"
+{
+    printf("getRand: \"%u\"\n", retval);
+    @returned_values = lhist(retval, 0, 99, 10)
+}
+

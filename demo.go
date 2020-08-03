@@ -9,11 +9,13 @@ import (
 	"time"
 )
 
-func getRand(max int) int {
-	return rand.Intn(max)
+func getRand(rander *rand.Rand, max int) int {
+	return rander.Intn(max)
 }
 
 func main() {
+	seed := rand.NewSource(time.Now().UnixNano())
+	rander := rand.New(seed)
 	counts := make(map[int]int)
 	sigs := make(chan os.Signal, 1)
 
@@ -25,7 +27,7 @@ countLoop:
 		case _ = <-sigs:
 			break countLoop
 		default:
-			result := getRand(100)
+			result := getRand(rander, 100)
 
 			if _, ok := counts[result]; !ok {
 				counts[result] = 0
