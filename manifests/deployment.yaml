@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bpftrace-demo
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bpftrace-demo
+  template:
+    metadata:
+      labels:
+        app: bpftrace-demo
+    spec:
+      containers:
+      - name: demo
+        image: registry.qasalesloft.com/bpftrace-demo:latest
+        command: ["./demo"]
+      imagePullSecrets:
+        - name: salesloft-docker-registry-qa
+
