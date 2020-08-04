@@ -16,8 +16,6 @@ spec:
     spec:
       containers:
       - name: demo
-        image: registry.qasalesloft.com/bpftrace-demo:latest
+        image: alexb138/bpftrace-demo:latest
         command: ["./demo"]
-      imagePullSecrets:
-        - name: salesloft-docker-registry-qa
 
