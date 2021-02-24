@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: bpftrace-demo
   labels:
-    app: nginx
+    app: bpftrace-demo
 spec:
   replicas: 1
   selector:
